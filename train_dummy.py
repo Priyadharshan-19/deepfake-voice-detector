@@ -1,17 +1,20 @@
-import sklearn.ensemble
-import joblib
+import pickle
 import numpy as np
-import os
+from sklearn.ensemble import RandomForestClassifier
 
-# Ensure the models folder exists
-os.makedirs('models', exist_ok=True)
-
-# Fake data for 40 MFCC features
+# 1. Create dummy training data (100 samples, 40 features each)
+# We use 40 features to match the n_mfcc=40 in your engine.py
 X = np.random.rand(100, 40)
-y = np.random.randint(0, 2, 100) # 0=Human, 1=AI
+# Binary labels: 0 for "Real", 1 for "AI-Generated"
+y = np.random.randint(0, 2, size=100)
 
-model = sklearn.ensemble.RandomForestClassifier()
+# 2. Initialize and "train" the model
+model = RandomForestClassifier(n_estimators=10)
 model.fit(X, y)
 
-joblib.dump(model, 'models/voice_classifier.pkl')
-print("✅ Placeholder model created successfully!")
+# 3. Save it properly to your models folder
+model_path = "models/voice_classifier.pkl"
+with open(model_path, "wb") as f:
+    pickle.dump(model, f)
+
+print(f"✅ Success! Valid model saved to {model_path}")

@@ -1,35 +1,33 @@
 import librosa
 import numpy as np
-import joblib
-import io
+import pickle
+import os
 from app.config import Config
 
-# Global variable to hold the model in memory
-model = None
+class VoiceEngine:
+    def __init__(self):
+        # Prevent EOFError by checking file size first
+        if not os.path.exists(Config.MODEL_PATH):
+            raise FileNotFoundError(f"Model file not found at: {Config.MODEL_PATH}")
+        
+        if os.path.getsize(Config.MODEL_PATH) == 0:
+            raise EOFError(f"The model file at {Config.MODEL_PATH} is empty (0 bytes). Please re-train and save the model.")
 
-def load_model():
-    global model
-    try:
-        model = joblib.load(Config.MODEL_PATH)
-    except Exception as e:
-        print(f"⚠️ Model not found at {Config.MODEL_PATH}. Run train_dummy.py first.")
+        with open(Config.MODEL_PATH, 'rb') as f:
+            self.model = pickle.load(f)
 
-def extract_features(audio_bytes):
-    # Load audio at 16kHz sample rate (standard for ASVspoof)
-    y, sr = librosa.load(io.BytesIO(audio_bytes), sr=16000)
-    # Extract 40 MFCC features
-    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
-    # Return the mean of each feature over time
-    return np.mean(mfccs.T, axis=0).reshape(1, -1)
+    def extract_features(self, audio_path):
+        # Load audio and extract MFCCs
+        y, sr = librosa.load(audio_path, sr=None)
+        mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
+        return np.mean(mfccs.T, axis=0)
 
-def predict_voice(audio_bytes):
-    if model is None: load_model()
-    if model is None: return "Error", 0.0
-    
-    features = extract_features(audio_bytes)
-    prediction = model.predict(features)[0]
-    # Get probability for the "AI-Generated" class
-    prob = np.max(model.predict_proba(features)[0])
-    
-    label = "AI-Generated" if prediction == 1 else "Human"
-    return label, float(prob)
+    def predict(self, audio_path):
+        features = self.extract_features(audio_path)
+        prediction = self.model.predict([features])[0]
+        probabilities = self.model.predict_proba([features])[0]
+        confidence = np.max(probabilities)
+        
+        # 0 = Real, 1 = AI-Generated (Standard deepfake mapping)
+        label = "AI-Generated" if prediction == 1 else "Real"
+        return label, float(confidence)

@@ -1,43 +1,48 @@
-from fastapi import FastAPI, UploadFile, File, Header, HTTPException
-from app.engine import predict_voice
+from fastapi import FastAPI, UploadFile, File, Header, HTTPException, Depends
+from app.engine import VoiceEngine
 from app.config import Config
-import time
+import shutil
+import os
 
-app = FastAPI(title="India AI Voice Detection API")
+app = FastAPI(title="India AI Impact Buildathon - Voice Detector")
 
-@app.post("/detect-voice")
-async def detect(file: UploadFile = File(...), api_key: str = Header(None)):
-    # 1. Authentication (Buildathon Requirement)
-    if api_key != Config.API_KEY:
-        raise HTTPException(status_code=401, detail="Unauthorized: Invalid API Key")
+# Initialize engine globally
+try:
+    engine = VoiceEngine()
+except Exception as e:
+    print(f"CRITICAL ERROR: {e}")
+    engine = None
+
+async def verify_api_key(x_api_key: str = Header(None, alias="X-API-Key")):
+    if x_api_key != Config.API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid API Key")
+    return x_api_key
+
+@app.post("/predict")
+async def predict_voice(file: UploadFile = File(...), api_key: str = Depends(verify_api_key)):
+    if engine is None:
+        raise HTTPException(status_code=500, detail="Model not loaded. Check server logs.")
     
-    start_time = time.time()
+    os.makedirs("temp", exist_ok=True)
+    temp_path = os.path.join("temp", file.filename)
+    
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
     try:
-        content = await file.read()
-        label, confidence = predict_voice(content)
-        latency = (time.time() - start_time) * 1000 
-        
-        # 2. Correct JSON Format for Submission
+        label, confidence = engine.predict(temp_path)
         return {
             "status": "success",
-            "filename": file.filename,
-            "classification": label,
+            "prediction": label,
             "confidence_score": round(confidence, 4),
-            "latency_ms": round(latency, 2)
+            "is_deepfake": True if label == "AI-Generated" else False
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-                            
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
 
-
-
-
-
-
-
-
-
-
-
-
-                            
+@app.get("/health")
+def health():
+    return {"status": "ready" if engine else "error"}
