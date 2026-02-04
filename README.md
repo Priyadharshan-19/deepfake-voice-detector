@@ -1,55 +1,81 @@
-AI-Generated Voice Detection System 🎙️🤖
-Project Title: India AI Impact Buildathon - Deepfake Voice Detector
+🎙️ AI-Generated Voice Detection System
+India AI Impact Buildathon – Deepfake Voice Detector
+📌 Problem Statement
 
-Problem Statement: Problem 1 - AI-Generated Voice Detection
+Problem 1: AI-Generated Voice Detection
 
-Deployed URL: https://deepfake-voice-detector-1.onrender.com/predict
+With the rapid rise of voice-cloning and synthetic speech technologies, distinguishing between real and AI-generated voices has become critical—especially in fraud prevention, authentication systems, and secure communications.
 
-API Key: IndiaAI_Impact_Secret_2026 (Use this in the X-API-Key header)
+🌐 Deployment Details
+
+Live API URL:
+👉 https://deepfake-voice-detector-1.onrender.com/predict
+
+Authentication:
+API Key (use in request header):
+
+X-API-Key: IndiaAI_Impact_Secret_2026
 
 📜 Project Overview
-This project provides a robust, scalable, and secure API for detecting AI-generated (deepfake) voices. Built for the India AI Impact Buildathon, it utilizes advanced signal processing and machine learning to distinguish between genuine human speech and synthetic audio.
 
-Key Features
-Real-time Detection: Low-latency inference for immediate results.
+This project delivers a robust, scalable, and secure REST API that accurately detects AI-generated (deepfake) voices from audio inputs. Developed for the India AI Impact Buildathon, the system leverages signal processing techniques and machine learning to analyze acoustic patterns and classify audio as either real human speech or synthetic voice.
 
-Intelligent Logic: Uses Mel-frequency cepstral coefficients (MFCCs) for high-fidelity feature extraction.
+✨ Key Features
 
-Secure API: Implements X-API-Key header authentication to protect against unauthorized access.
+Real-time Detection
+Low-latency inference enables instant classification of audio inputs.
 
-Standardized JSON: Returns evaluation-ready results in a clear format.
+Intelligent Audio Analysis
+Uses MFCC-based feature extraction to capture subtle acoustic artifacts.
+
+Secure API Access
+Implements X-API-Key authentication to prevent unauthorized usage.
+
+Standardized JSON Responses
+Evaluation-ready output with prediction, confidence score, and flags.
 
 🧠 Intelligent Logic & Methodology
-Unlike simple file-type checks, this system analyzes the acoustic fingerprint of the audio.
 
-1. Feature Extraction (MFCC)
-AI-generated voices often leave subtle artifacts in their frequency distributions. Our system extracts 40 Mel-frequency cepstral coefficients (MFCCs), which capture the physical characteristics of the "vocal tract" represented in the audio signal.
+Unlike superficial file or metadata checks, this system performs deep acoustic analysis of the audio signal.
 
-2. Machine Learning Pipeline
-Preprocessing: Audio is standardized using librosa to ensure consistent sampling rates.
+1️⃣ Feature Extraction – MFCC
 
-Classification: A pre-trained Random Forest Classifier analyzes the mean MFCC features to provide a binary classification: Real or AI-Generated.
+Extracts 40 Mel-Frequency Cepstral Coefficients (MFCCs)
 
-Confidence Scoring: The model doesn't just guess; it provides a confidence score based on probability distributions, ensuring transparency in high-stakes fraud detection.
+Captures frequency-domain characteristics that reflect vocal tract behavior
+
+Helps identify artifacts commonly present in AI-generated speech
+
+2️⃣ Machine Learning Pipeline
+
+Preprocessing:
+Audio is standardized using librosa for consistent sampling rates and signal normalization.
+
+Classification:
+A pre-trained Random Forest Classifier analyzes the mean MFCC features to classify audio as:
+
+Real
+
+AI-Generated
+
+Confidence Scoring:
+Outputs probability-based confidence scores to ensure transparency and reliability in fraud-sensitive applications.
 
 🚀 API Usage
-Endpoint: POST /predict
-Submit an audio file to determine its authenticity.
+Endpoint
+POST /predict
 
-Headers:
-
-JSON
+Request Headers
 {
   "X-API-Key": "IndiaAI_Impact_Secret_2026",
   "Content-Type": "multipart/form-data"
 }
-Request Body:
 
-file: An audio file (.wav, .mp3, or .m4a).
+Request Body
 
-Response Format:
+file: Audio file (.wav, .mp3, or .m4a)
 
-JSON
+Response Format
 {
   "status": "success",
   "prediction": "AI-Generated",
@@ -57,17 +83,22 @@ JSON
   "is_deepfake": true,
   "message": "Analysis completed successfully"
 }
+
 🛠️ Project Structure
-Plaintext
 deepfake-voice-detector/
 ├── app/
-│   ├── main.py          # FastAPI routes & API Key security
-│   ├── engine.py        # Logic for MFCC extraction & ML inference
-│   └── config.py        # Environment & Key management
+│   ├── main.py          # FastAPI routes & API key authentication
+│   ├── engine.py        # MFCC extraction & ML inference logic
+│   └── config.py        # Environment variables & configuration
 ├── models/
-│   └── voice_classifier.pkl # Trained Random Forest Model
-├── .env.example         # Template for security keys
+│   └── voice_classifier.pkl   # Trained Random Forest model
+├── .env.example         # API key & environment template
 ├── requirements.txt     # Python dependencies
 └── README.md            # Project documentation
+
 👨‍💻 Author
-Priyadharshan M. Second-year B.E. (CSE) student at SNS College of Technology Internshala Student Partner (ISP)
+
+Priyadharshan M.
+Second-Year B.E. (Computer Science & Engineering)
+SNS College of Technology
+Internshala Student Partner (ISP)
