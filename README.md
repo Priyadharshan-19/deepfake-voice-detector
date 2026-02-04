@@ -1,9 +1,3 @@
-Alright 😄 here’s the **complete, polished README.md** with the **interactive `/docs` upload & test section added**, everything clean, aligned, and GitHub-ready.
-
-You can **copy-paste this directly** 👇
-
----
-
 # 🎙️ AI-Generated Voice Detection System 🤖
 
 ### *India AI Impact Buildathon – Deepfake Voice Detector*
@@ -154,13 +148,3 @@ POST /predict
 🏫 SNS College of Technology
 
 > *“Building trust in the age of artificial intelligence starts with the ability to detect what isn’t real.”*
-
----
-
-If you want next:
-
-* 🔥 **Buildathon impact section**
-* 🧩 **System architecture diagram**
-* 🏆 **Judge-oriented summary (30-second pitch)**
-
-Just tell me — this project is already looking competition-ready 🚀
