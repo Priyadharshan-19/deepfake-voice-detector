@@ -1,23 +1,23 @@
-# Python bytecode (compiled files)
+# --- Python & FastAPI ---
 __pycache__/
 *.py[cod]
+*$py.class
+.pytest_cache/
 
-# Virtual Environment (Don't upload your local Python setup)
-venv/
+# --- Environments ---
 .venv/
+venv/
 env/
-
-# Environment Variables (CRITICAL: Keeps your secret API keys safe)
+# Ignore the actual secrets, but remember to create a .env.example!
 .env
+.env.local
 
-# Model artifacts (Only upload if they are small; otherwise use Git LFS)
-# For the buildathon, you might want to exclude the dummy model
-# models/voice_classifier.pkl
+# --- Model & Data ---
+# Include your .pkl for the hackathon unless it's over 100MB
+# !models/voice_classifier.pkl 
 
-# IDE specific files
+# --- IDE & OS ---
 .vscode/
 .idea/
-
-# OS specific files
 .DS_Store
 Thumbs.db
