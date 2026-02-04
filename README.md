@@ -1,131 +1,73 @@
-# 🎙️ Deepfake Voice Detector  
-India AI Impact Buildathon 2026 – Official Submission
+AI-Generated Voice Detection System 🎙️🤖
+Project Title: India AI Impact Buildathon - Deepfake Voice Detector
 
-Deepfake Voice Detector is a production-ready AI-powered API designed to detect synthetic and AI-generated voices in audio calls.  
-The system helps combat voice-cloning frauds and deepfake scams by providing reliable real-time classification of real vs fake audio.
+Problem Statement: Problem 1 - AI-Generated Voice Detection
 
----
+Deployed URL: https://deepfake-voice-detector-1.onrender.com/predict
 
-## 🚀 Live API Endpoint
-URL: https://your-deployed-url.onrender.com/detect-voice  
-API Key: IndiaAI_Impact_Secret_2026 (Provided for evaluation only)
+API Key: IndiaAI_Impact_Secret_2026 (Use this in the X-API-Key header)
 
----
+📜 Project Overview
+This project provides a robust, scalable, and secure API for detecting AI-generated (deepfake) voices. Built for the India AI Impact Buildathon, it utilizes advanced signal processing and machine learning to distinguish between genuine human speech and synthetic audio.
 
-## ✨ Key Features
-- Real-time detection with low latency (<200ms)
-- Deepfake and synthetic voice identification
-- MFCC-based audio feature extraction
-- API key–based secure access
-- Scalable FastAPI backend with async handling
-- Stateless processing with no audio storage
+Key Features
+Real-time Detection: Low-latency inference for immediate results.
 
----
+Intelligent Logic: Uses Mel-frequency cepstral coefficients (MFCCs) for high-fidelity feature extraction.
 
-## 🛠️ Tech Stack
-- Language: Python 3.10+
-- Framework: FastAPI
-- Machine Learning: Scikit-learn
-- Audio Processing: Librosa
-- Deployment: Render / Railway
-- API Documentation: Swagger UI
+Secure API: Implements X-API-Key header authentication to protect against unauthorized access.
 
----
+Standardized JSON: Returns evaluation-ready results in a clear format.
 
-## 📂 Project Structure
-```text
-deepfake-voice-detector/
-├── app/
-│   ├── main.py              # API entry point & routes
-│   ├── engine.py            # Feature extraction & inference logic
-│   └── config.py            # Configuration handling
-├── models/
-│   └── voice_classifier.pkl # Trained ML model
-├── requirements.txt         # Dependencies
-├── train_dummy.py           # Model training script
-├── .env                     # Environment variables (ignored)
-└── README.md
-⚙️ Local Setup
-Clone the Repository
-bash
-Copy code
-git clone https://github.com/your-username/deepfake-voice-detector.git
-cd deepfake-voice-detector
-Install Dependencies
-bash
-Copy code
-pip install -r requirements.txt
-Train the Model
-bash
-Copy code
-python train_dummy.py
-Run the API Server
-bash
-Copy code
-python -m uvicorn app.main:app --reload
-🧪 API Testing
-Swagger UI
-Access API documentation at:
+🧠 Intelligent Logic & Methodology
+Unlike simple file-type checks, this system analyzes the acoustic fingerprint of the audio.
 
-bash
-Copy code
-http://localhost:8000/docs
-Endpoint Details
-Method: POST
+1. Feature Extraction (MFCC)
+AI-generated voices often leave subtle artifacts in their frequency distributions. Our system extracts 40 Mel-frequency cepstral coefficients (MFCCs), which capture the physical characteristics of the "vocal tract" represented in the audio signal.
 
-Endpoint: /detect-voice
+2. Machine Learning Pipeline
+Preprocessing: Audio is standardized using librosa to ensure consistent sampling rates.
+
+Classification: A pre-trained Random Forest Classifier analyzes the mean MFCC features to provide a binary classification: Real or AI-Generated.
+
+Confidence Scoring: The model doesn't just guess; it provides a confidence score based on probability distributions, ensuring transparency in high-stakes fraud detection.
+
+🚀 API Usage
+Endpoint: POST /predict
+Submit an audio file to determine its authenticity.
 
 Headers:
 
-makefile
-Copy code
-api_key: IndiaAI_Impact_Secret_2026
-Body:
+JSON
+{
+  "X-API-Key": "IndiaAI_Impact_Secret_2026",
+  "Content-Type": "multipart/form-data"
+}
+Request Body:
 
-form-data
+file: An audio file (.wav, .mp3, or .m4a).
 
-key: file
+Response Format:
 
-value: your_audio.wav
-
-🛡️ Security & Privacy
-Audio files are never stored
-
-All processing happens in memory
-
-API key authentication enabled
-
-API key rotation supported via environment variables
-
-🚀 Deployment (Render)
-Build Command
-bash
-Copy code
-pip install -r requirements.txt
-Start Command
-bash
-Copy code
-python -m uvicorn app.main:app --host 0.0.0.0 --port 10000
-📌 Final Submission Checklist
-Push the project to GitHub
-
-Verify .env is excluded using .gitignore
-
-Deploy using Render.com
-
-Submit the GitHub repository link and live API URL
-
-🧠 Impact
-This project addresses the increasing threat of AI-driven voice fraud and supports secure, trustworthy digital communication systems.
-
-yaml
-Copy code
-
----
-
-If you want:
-- a version with zero emojis
-- an ultra-short README (1-page judge-friendly)
-- or a version aligned to resume / portfolio
-
-Just say the word 🚀
+JSON
+{
+  "status": "success",
+  "prediction": "AI-Generated",
+  "confidence_score": 0.9842,
+  "is_deepfake": true,
+  "message": "Analysis completed successfully"
+}
+🛠️ Project Structure
+Plaintext
+deepfake-voice-detector/
+├── app/
+│   ├── main.py          # FastAPI routes & API Key security
+│   ├── engine.py        # Logic for MFCC extraction & ML inference
+│   └── config.py        # Environment & Key management
+├── models/
+│   └── voice_classifier.pkl # Trained Random Forest Model
+├── .env.example         # Template for security keys
+├── requirements.txt     # Python dependencies
+└── README.md            # Project documentation
+👨‍💻 Author
+Priyadharshan M. Second-year B.E. (CSE) student at SNS College of Technology Internshala Student Partner (ISP)
