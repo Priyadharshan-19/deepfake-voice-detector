@@ -4,7 +4,7 @@ from app.config import Config
 import shutil
 import os
 
-app = FastAPI(title="India AI Impact Buildathon - Voice Detector")
+app = FastAPI(title="India AI Impact Buildathon - AI Voice Detector")
 
 # Initialize engine globally
 try:
