@@ -1,0 +1,23 @@
+# Python bytecode (compiled files)
+__pycache__/
+*.py[cod]
+
+# Virtual Environment (Don't upload your local Python setup)
+venv/
+.venv/
+env/
+
+# Environment Variables (CRITICAL: Keeps your secret API keys safe)
+.env
+
+# Model artifacts (Only upload if they are small; otherwise use Git LFS)
+# For the buildathon, you might want to exclude the dummy model
+# models/voice_classifier.pkl
+
+# IDE specific files
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db
