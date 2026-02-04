@@ -1,10 +1,24 @@
-🎙️ AI-Generated Voice Detection System 🤖
-India AI Impact Buildathon – Deepfake Voice Detector
-📜 Project Overview
+Alright 😄 here’s the **complete, polished README.md** with the **interactive `/docs` upload & test section added**, everything clean, aligned, and GitHub-ready.
 
-This project delivers a secure, scalable, and production-ready API for detecting AI-generated (deepfake) voices. Built for the India AI Impact Buildathon, it leverages advanced signal processing and machine learning techniques to analyze acoustic fingerprints and accurately classify audio as Real or AI-Generated.
+You can **copy-paste this directly** 👇
 
-🛠️ Project Structure
+---
+
+# 🎙️ AI-Generated Voice Detection System 🤖
+
+### *India AI Impact Buildathon – Deepfake Voice Detector*
+
+---
+
+## 📜 Project Overview
+
+This project delivers a **secure, scalable, and production-ready API** for detecting AI-generated (deepfake) voices. Built for the **India AI Impact Buildathon**, it leverages **advanced signal processing and machine learning** techniques to analyze acoustic fingerprints and accurately classify audio as **Real** or **AI-Generated**.
+
+---
+
+## 🛠️ Project Structure
+
+```
 deepfake-voice-detector/
 ├── app/
 │   ├── main.py              # FastAPI routes & API key security
@@ -15,85 +29,103 @@ deepfake-voice-detector/
 ├── .env.example             # Environment variable template
 ├── requirements.txt         # Python dependencies
 └── README.md                # Project documentation
+```
 
-🚨 Problem Statement
+---
 
-Problem 1: AI-Generated Voice Detection
+## 🚨 Problem Statement
+
+**Problem 1: AI-Generated Voice Detection**
 
 With the rapid growth of voice cloning and deepfake audio technologies, identifying synthetic speech has become essential for preventing fraud, impersonation, and misinformation.
 
-🌐 Live Deployment
-🔹 API Endpoint
+---
 
-👉 https://deepfake-voice-detector-1.onrender.com/predict
+## 🌐 Live Deployment
 
-🔹 Interactive API Documentation (Upload & Test Audio)
+### 🔹 API Endpoint
 
-👉 https://deepfake-voice-detector-1.onrender.com/docs
+👉 [https://deepfake-voice-detector-1.onrender.com/predict](https://deepfake-voice-detector-1.onrender.com/predict)
+
+### 🔹 Interactive API Documentation (Upload & Test Audio)
+
+👉 [https://deepfake-voice-detector-1.onrender.com/docs](https://deepfake-voice-detector-1.onrender.com/docs)
 
 Use this Swagger UI to:
 
-Upload an audio file (.wav, .mp3, .m4a)
+* Upload an audio file (`.wav`, `.mp3`, `.m4a`)
+* Provide the required `X-API-Key`
+* Execute the `/predict` endpoint
+* Instantly view prediction results and confidence score
 
-Provide the required X-API-Key
+> **Tip:** Open `/docs`, select the `/predict` endpoint, click **Try it out**, upload your audio file, add the API key, and execute.
 
-Execute the /predict endpoint
+---
 
-Instantly view prediction results and confidence score
+## 🔐 API Authentication
 
-Tip: Open /docs, select the /predict endpoint, click Try it out, upload your audio file, add the API key, and execute.
+**API Key:**
 
-🔐 API Authentication
-
-API Key:
-
+```
 IndiaAI_Impact_Secret_2026
+```
 
+**Header Usage:**
 
-Header Usage:
-
+```
 X-API-Key: IndiaAI_Impact_Secret_2026
+```
 
-✨ Key Features
+---
 
-⚡ Real-Time Detection – Low-latency inference for immediate results
+## ✨ Key Features
 
-🧠 Intelligent Audio Analysis – MFCC-based feature extraction
+* ⚡ **Real-Time Detection** – Low-latency inference for immediate results
+* 🧠 **Intelligent Audio Analysis** – MFCC-based feature extraction
+* 🔐 **Secure API Access** – X-API-Key header authentication
+* 📊 **Confidence Scoring** – Probability-driven prediction transparency
+* 🔁 **Standardized JSON Responses** – Easy integration with applications
 
-🔐 Secure API Access – X-API-Key header authentication
+---
 
-📊 Confidence Scoring – Probability-driven prediction transparency
+## 🧠 Intelligent Logic & Methodology
 
-🔁 Standardized JSON Responses – Easy integration with applications
+### 1️⃣ Feature Extraction (MFCC)
 
-🧠 Intelligent Logic & Methodology
-1️⃣ Feature Extraction (MFCC)
+The system extracts **40 Mel-Frequency Cepstral Coefficients (MFCCs)** to capture subtle acoustic artifacts commonly introduced by AI-generated voices.
 
-The system extracts 40 Mel-Frequency Cepstral Coefficients (MFCCs) to capture subtle acoustic artifacts commonly introduced by AI-generated voices.
+### 2️⃣ Machine Learning Pipeline
 
-2️⃣ Machine Learning Pipeline
+* **Preprocessing:** Audio normalization and resampling using `librosa`
+* **Classification:** Pre-trained **Random Forest Classifier**
+* **Confidence Scoring:** Probability-based decision confidence for transparency
 
-Preprocessing: Audio normalization and resampling using librosa
+---
 
-Classification: Pre-trained Random Forest Classifier
+## 🚀 API Usage
 
-Confidence Scoring: Probability-based decision confidence for transparency
+### 🔹 Endpoint
 
-🚀 API Usage
-🔹 Endpoint
+```
 POST /predict
+```
 
-🔹 Headers
+### 🔹 Headers
+
+```json
 {
   "X-API-Key": "IndiaAI_Impact_Secret_2026",
   "Content-Type": "multipart/form-data"
 }
+```
 
-🔹 Request Body
+### 🔹 Request Body
 
-file: Audio file (.wav, .mp3, .m4a)
+* **file**: Audio file (`.wav`, `.mp3`, `.m4a`)
 
-🔹 Sample Response
+### 🔹 Sample Response
+
+```json
 {
   "status": "success",
   "prediction": "AI-Generated",
@@ -101,23 +133,34 @@ file: Audio file (.wav, .mp3, .m4a)
   "is_deepfake": true,
   "message": "Analysis completed successfully"
 }
+```
 
-🧪 Tech Stack
+---
 
-Backend: FastAPI
+## 🧪 Tech Stack
 
-Machine Learning: Random Forest Classifier
+* **Backend:** FastAPI
+* **Machine Learning:** Random Forest Classifier
+* **Audio Processing:** Librosa
+* **Deployment:** Render
+* **Language:** Python
 
-Audio Processing: Librosa
+---
 
-Deployment: Render
+## 👨‍💻 Author
 
-Language: Python
-
-👨‍💻 Author
-
-Priyadharshan M.
+**Priyadharshan M.**
 🎓 Second-Year B.E. (CSE)
 🏫 SNS College of Technology
 
-“Building trust in the age of artificial intelligence starts with the ability to detect what isn’t real.”
+> *“Building trust in the age of artificial intelligence starts with the ability to detect what isn’t real.”*
+
+---
+
+If you want next:
+
+* 🔥 **Buildathon impact section**
+* 🧩 **System architecture diagram**
+* 🏆 **Judge-oriented summary (30-second pitch)**
+
+Just tell me — this project is already looking competition-ready 🚀
